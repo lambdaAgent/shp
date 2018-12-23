@@ -4,9 +4,13 @@ const grey = `rgba(0,0,0,0.2)`;
 const style: {[any:string]:CSSProperties} = {
     root: {
         display: 'flex',
-        fontSize: 12
+        fontSize: 12,
+        margin: '8px 0',
+        border: `1px solid ${grey}`,
+        borderRadius: 3,
     },
     currencyDetail:{
+        width: 350,
         display: 'flex',
         flexDirection: "column",
         justifyContent: "space-around",
@@ -20,10 +24,15 @@ const style: {[any:string]:CSSProperties} = {
         fontSize: 16
     },
     deleteButton:{
-        width: '20%',
+        fontSize: 20,
+        width: 50,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         cursor: 'pointer'
+    },
+    error: {
+        color: 'red'
     }
 }
 

@@ -12,7 +12,7 @@ class CurrencyAPI {
 
     // free.currencyconverterapi, can only convert max 2 query in free version
     private static getCurrencyInDollar(currency:Currency):Promise<Currency>{
-        const currencyAPIurl = 'https://free.currencyconverterapi.com/api/v6/convert?compact=y&q=';
+        const currencyAPIurl = 'http://localhost:4000/convert/';
         const toConvert = `USD_${currency.shortname}`;
         const url = currencyAPIurl + toConvert;
         return new Promise((resolve, reject) => {
@@ -21,12 +21,13 @@ class CurrencyAPI {
                 return res.json()
             })
             .then(res => {
-                console.log(res)
                 const valueOf1Usd = res[toConvert].val;
                 currency.valueOf1Usd = valueOf1Usd;
                 resolve(currency)
             })
-            .catch(reject)
+            .catch(err => {
+                resolve(currency)
+            })
         })
     }
 }

@@ -31,9 +31,9 @@ class App extends React.Component<any, IState> {
     }
   }
 
-  onRemoveCurrency = (shortname:string) => {
+  onRemoveCurrency = (curr:Currency) => {
     const cloneCurrencies = this.state.currencies.filter((currency:Currency) => {
-      return currency.shortname !== shortname;
+      return currency.shortname !== curr.shortname;
     });
     this.setState({ currencies: cloneCurrencies });
   }
