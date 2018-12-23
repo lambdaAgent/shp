@@ -1,14 +1,17 @@
 import * as React from 'react';
 
-type Props = {
+interface IProps {
     onAddInput(input: string):void;
-
+}
+interface IState {
+    showInput: boolean;
+    input: string;
 }
 
-class AddButton extends React.Component<Props>{
-    state = {
+class AddButton extends React.Component<IProps, IState>{
+    public state = {
+        input: '',
         showInput: false, 
-        input: ''
     }
     onInputChange: (e:any)=>void = (e: any) => {
         const value = e.target.value;
@@ -23,7 +26,6 @@ class AddButton extends React.Component<Props>{
         this.setState({ showInput: true });
     }
     render(){
-        const { onAddInput } = this.props;
         const { input, showInput } = this.state;
         // ternary in typescript mu
         return(
@@ -33,7 +35,7 @@ class AddButton extends React.Component<Props>{
                     <form onSubmit={this.onSubmit}>
                         <input 
                             value={input} 
-                            onChange={() => {}}
+                            onChange={this.onInputChange}
                         />
                         <button type='submit'></button> 
                     </form>

@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "shopee",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.7.0",
@@ -15,6 +15,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.34",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
