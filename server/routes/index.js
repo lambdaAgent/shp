@@ -24,4 +24,9 @@ router.get('/convert/:toConvert', function(req, res, next) {
   }, request * 50);
 });
 
+router.get('/', (req, res, next) => {
+  const index = require('../public/index.html')
+  res.render(index);
+})
+
 module.exports = router;

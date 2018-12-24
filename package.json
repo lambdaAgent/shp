@@ -1,0 +1,10 @@
+{
+    "name": "shopee",
+    "version": "0.1.0",
+    "private": false,
+    "scripts": {
+      "docker:build": "docker build . -t latest",
+      "docker:start": "npm run docker:build && docker run -i -p 4000:4000 latest"
+    }
+}
+  
