@@ -13,7 +13,7 @@ type Props = {
 class Cell extends React.PureComponent<Props> {
     render(){
         const { currency, totalNumber, onRemoveCurrency } = this.props;
-        const totalValue = currency.valueOf1Usd ? totalNumber * currency.valueOf1Usd : <div style={styles.error}>Failed To Load</div>;
+        const totalValue = currency.valueOf1Usd ? (totalNumber * currency.valueOf1Usd) : <div style={styles.error}>Failed To Load</div>;
 
         return(
             <div style={styles.root}>

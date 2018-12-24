@@ -1,7 +1,8 @@
 import * as React from 'react';
+import styles from './addButtonStyle';
 
 interface IProps {
-    onAddInput(input: string):void;
+    onAddInput(input: [[string, string]]):void;
 }
 interface IState {
     showInput: boolean;
@@ -20,7 +21,9 @@ class AddButton extends React.Component<IProps, IState>{
     onSubmit = e => {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onAddInput && this.props.onAddInput(this.state.input);
+        const [ shortname, longname ] = this.state.input.split(',');
+        this.props.onAddInput && this.props.onAddInput([[shortname, longname]]);
+        this.setState({ showInput: false })
     }
     showInput = e => {
         this.setState({ showInput: true });
@@ -29,18 +32,24 @@ class AddButton extends React.Component<IProps, IState>{
         const { input, showInput } = this.state;
         // ternary in typescript mu
         return(
-            <div>
+            <div style={styles.root}>
                 {
                     showInput ? 
-                    <form onSubmit={this.onSubmit}>
-                        <input 
-                            value={input} 
-                            onChange={this.onInputChange}
-                        />
-                        <button type='submit'></button> 
+                    <form style={styles.form} onSubmit={this.onSubmit}>
+                        <div>
+                            <input 
+                                placeholder="Input currency here"
+                                style={styles.input}
+                                value={input} 
+                                onChange={this.onInputChange}
+                            />
+                            <button style={styles.submitButton} type='submit'>Submit</button> 
+                        </div>
+                        <p>Type currency shortname and longname, separated by comma</p>
+                        <p>currency longname is optional</p>
                     </form>
                     :
-                    <div onClick={this.showInput}>
+                    <div style={styles.button} onClick={this.showInput}>
                     +  Add More Currencies
                     </div>
                 }

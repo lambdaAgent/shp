@@ -4,11 +4,14 @@ import CurrencyAPI from '../../api/CurrencyAPI';
 import { defaultCurrencies } from '../../model/Currencies';
 import Cell from '../Cell';
 import styles from './appStyle'
+import AddButton from '../AddButton';
 
 interface IState {
-  totalNumber:number;
-  isLoading:boolean;
+
   currencies: Array<Currency>;
+  currencyToAdd: string;
+  isLoading:boolean;
+  totalNumber:number;
 }
 
 class App extends React.Component<any, IState> {
@@ -17,6 +20,7 @@ class App extends React.Component<any, IState> {
   state = {
     totalNumber: 1.00,
     isLoading: false,
+    currencyToAdd: '',
     currencies: [] as Currency[]
   }
 
@@ -38,6 +42,19 @@ class App extends React.Component<any, IState> {
     this.setState({ currencies: cloneCurrencies });
   }
 
+  onInputChange = e => {
+    const value = e.target.value;
+    this.setState({ totalNumber: value });
+  }
+
+  onCurrencyToAddChange = ([[shortname, longname]]) => {
+    CurrencyAPI.getAllCurrencyInList([[shortname, longname]])
+    .then(currencies => {
+      const cloneCurrencies = this.state.currencies.slice();
+      this.setState({ currencies: currencies.concat(cloneCurrencies) });
+    })
+  }
+
   public render() {
     const { isLoading, totalNumber, currencies } = this.state;
     let showLoading: React.ReactElement<any> | null = null;
@@ -53,14 +70,25 @@ class App extends React.Component<any, IState> {
         {showLoading}
         {
           !isLoading &&
-          currencies.map(currency => {
-            return (
-            <Cell key={currency.shortname} 
-              currency={currency} 
-              totalNumber={totalNumber} 
-              onRemoveCurrency={this.onRemoveCurrency}
-            />
-          )})
+          <div>
+              <section>
+                Total 
+                <input value={totalNumber} onChange={this.onInputChange}/>
+              </section>
+              <AddButton onAddInput={this.onCurrencyToAddChange}/>
+              {
+                currencies.map(currency => {
+                  return (
+                    <div>
+                      <Cell key={currency.shortname} 
+                        currency={currency} 
+                        totalNumber={totalNumber} 
+                        onRemoveCurrency={this.onRemoveCurrency}
+                      />
+                  </div>
+                )})
+              }
+          </div>
         }
       </div>
     );

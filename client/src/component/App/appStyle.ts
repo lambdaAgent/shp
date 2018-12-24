@@ -7,7 +7,7 @@ const style: {[any:string]: CSSProperties} = {
         margin: '0 auto',
         padding: 8,
         width: 400,
-        backgroundColor: 'rgba(0,0,100,0.05)'
+        backgroundColor: 'rgba(0,0,100,0.01)'
     }   
 }
 
